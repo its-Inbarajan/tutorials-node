@@ -13,7 +13,7 @@ class mValidation{
             }
             else{
                 console.log("next");
-                next()
+                next()  
             }
         
     } catch (error) {

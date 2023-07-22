@@ -4,29 +4,38 @@ const mongoose = require("mongoose");
 const admiRrouter = require("./routes/adminRoute");
 const userRouter = require("./routes/userRoutes");
 const app = express(); 
-app.use(express.json());
-app.use(Cors());
 const  socket = require("socket.io");
+const { path } = require("path");
+const port = 4200;
+// const db=require('./config/config').get(process.env.NODE_ENV);
+const db = require('./config').get(process.env.NODE_ENV)
 
-app.use('/user', userRouter);
-app.use('/admin',admiRrouter)
 
 //roter
-app.get('/',(req, res) =>{
-    res.send("hello");
+
+app.use('/user', userRouter);
+
+app.use('/admin',admiRrouter)
+
+app.use(express.json());
+
+app.use(Cors());
+    
+app.use(express.static(process.cwd()+"/tutorials/docs/tutorials/"));
+
+const server = app.listen(port,() => {
+    console.log(`server is running port 4200  http://localhost:${port}`);
 });
 
-const server = app.listen(4200, () => {
-    console.log("server is running port 4200");
-   
+
+
+// mongoose.connect('mongodb:// 192.168.186.95:4200/android')
+mongoose.Promise=global.Promise;
+
+mongoose.connect(db.DATABASE,{ useNewUrlParser: true,useUnifiedTopology:true },function(err){
+    if(err) console.log(err);
+    console.log("database is connected");
 });
-mongoose.connect('mongodb://127.0.0.1:27017/android')
-.then(()=>{
-        console.log("Db is connected");
-})
-.catch((error)=>{
-    console.log(error);
-})
 
 // const db = mongoose.connection;
 // db.on("error", console.error.bind(console,"connection error:"));

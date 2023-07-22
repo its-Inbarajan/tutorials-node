@@ -58,23 +58,23 @@ const login = async(req, res) => {
         const token = jwt.sign({email : existinguser.email, id : existinguser._id},SECRET_KEY);
         res.status(200).json({user: existinguser,token: token});
 
-        // if (email === "hr@gmail.com") {
-        //     const data = await userModel.find()
-        //     res.json({data : data})  
-        // }  
+        if (email === "hr@gmail.com") {
+            const data = await userModel.find()
+            res.json({data : data})  
+        }  
 
-        // const hrt = "63bcf08b78405b9cf571c916";
-        // if( 
-        //      existinguser._id === hrt) {
-        //     const data = await userModel.find()
-        //     res.json({data : data})
-        //  }
-    //     const hrtoken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImhyQGdtYWlsLmNvbSIsImlkIjoiNjNiY2YwOGI3ODQwNWI5Y2Y1NzFjOTE2IiwiaWF0IjoxNjczNDIwNzYwfQ.ZxGmfwWDrfaKiilHVemX9bTN_7CZXH2Yei98JoDOfO8";
-    //     const hrlog = await userModel.findOne({email : email.token, hrtoken});
-    //     if (hrlog == true) {
-    //         const data = await userModel.find()
-    //         res.json({data: data}) 
-    //     }
+        const hrt = "63bcf08b78405b9cf571c916";
+        if( 
+             existinguser._id === hrt) {
+            const data = await userModel.find()
+            res.json({data : data})
+         }
+        const hrtoken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImhyQGdtYWlsLmNvbSIsImlkIjoiNjNiY2YwOGI3ODQwNWI5Y2Y1NzFjOTE2IiwiaWF0IjoxNjczNDIwNzYwfQ.ZxGmfwWDrfaKiilHVemX9bTN_7CZXH2Yei98JoDOfO8";
+        const hrlog = await userModel.findOne({email : email.token, hrtoken});
+        if (hrlog == true) {
+            const data = await userModel.find()
+            res.json({data: data}) 
+        }
 
        
     } 
@@ -126,9 +126,7 @@ const update  =  async(req, res) => {
         )
         console.log(req.body);
         if(data.modifiedCount>0){
-            res.status(200).send({data:data,message:'successfull', success:true})
-
-            
+            res.status(200).send({data:data,message:'successfull', success:true})            
         }
         else{
             res.status(400).send({message:'failed',success:false})
